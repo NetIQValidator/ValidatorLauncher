@@ -2,7 +2,7 @@ Launcher for NetIQ Validator v0.9.2, 2015-09-03, © 2013 Lothar Haeger (lothar.h
 
 download url:  https://iam.is4it.de/public/download/ValidatorLauncher.zip
 home page url: http://www.is4it.de/en/solution/identity-access-management/
-source code:   https://github.com/NetIQValidator/ValidatorScripts/tree/master/ValidatorLauncher
+source code:   https://github.com/NetIQValidator/ValidatorLauncher/tree/master/WindowsValidatorLauncher
 license:       Mozilla Public License v2.0
 
 NetIQ Validator comes with launch scripts for all supported platforms (Linux/Mac/Windows) but those are console mode shell scripts and offer not much comfort. The Launcher for NetIQ Validator is a drop-in alternative for the standard Windows script "runValidator.bat" that replaces the validator server console windows with a tray menu icon and (by default) auto-launches the validator client page. From the tray menu you can
