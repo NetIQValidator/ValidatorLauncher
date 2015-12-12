@@ -1,0 +1,3 @@
+﻿NetIQ Validator comes with launch scripts for all supported platforms (Linux/Mac/Windows) but those are console mode shell scripts and offer not much comfort. A while ago when I was still using a Windows laptop as my main workhorse, I wrote a little tool to quickly launch NetIQ Validator from a task bar icon instead. Since I moved on to a MacBook in the mean time and Validator runs on OS-X just fine, I jumped at the opportunity to try out Apple’s new programming language Swift and wrote a native Mac version over the summer.
+
+Both versions and a more detailed readme.txt are available in the OS-specific subfolders of this project.
