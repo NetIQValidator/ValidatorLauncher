@@ -694,7 +694,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Service" identifier="1" id="prW-6p-c3W">
-                                <view key="view" id="YLs-I7-lL0">
+                                <view key="view" ambiguous="YES" id="YLs-I7-lL0">
                                     <rect key="frame" x="10" y="33" width="500" height="178"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -849,12 +849,6 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                </view>
-                            </tabViewItem>
-                            <tabViewItem label="Update" identifier="" id="eKy-yx-AcS">
-                                <view key="view" ambiguous="YES" id="7yR-pr-Fzg">
-                                    <rect key="frame" x="10" y="33" width="500" height="178"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="About" identifier="" id="8wr-bA-jie">

@@ -10,7 +10,6 @@
 		C557DD431B988ED300E59BC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557DD421B988ED300E59BC9 /* AppDelegate.swift */; };
 		C557DD451B988ED300E59BC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C557DD441B988ED300E59BC9 /* Images.xcassets */; };
 		C557DD481B988ED300E59BC9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C557DD461B988ED300E59BC9 /* MainMenu.xib */; };
-		C557DD541B988ED300E59BC9 /* ValidatorLauncherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557DD531B988ED300E59BC9 /* ValidatorLauncherTests.swift */; };
 		C5C71A3B1B9B0C9600B101FE /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C71A3A1B9B0C9600B101FE /* StreamReader.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +30,6 @@
 		C557DD441B988ED300E59BC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C557DD471B988ED300E59BC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C557DD4D1B988ED300E59BC9 /* ValidatorLauncher.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ValidatorLauncher.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C557DD521B988ED300E59BC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C557DD531B988ED300E59BC9 /* ValidatorLauncherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorLauncherTests.swift; sourceTree = "<group>"; };
 		C5C71A3A1B9B0C9600B101FE /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,7 +55,6 @@
 			isa = PBXGroup;
 			children = (
 				C557DD3F1B988ED300E59BC9 /* ValidatorLauncher */,
-				C557DD501B988ED300E59BC9 /* ValidatorLauncherTests */,
 				C557DD3E1B988ED300E59BC9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,24 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				C557DD411B988ED300E59BC9 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C557DD501B988ED300E59BC9 /* ValidatorLauncherTests */ = {
-			isa = PBXGroup;
-			children = (
-				C557DD531B988ED300E59BC9 /* ValidatorLauncherTests.swift */,
-				C557DD511B988ED300E59BC9 /* Supporting Files */,
-			);
-			name = ValidatorLauncherTests;
-			path = "ValidatorLauncher for MacTests";
-			sourceTree = "<group>";
-		};
-		C557DD511B988ED300E59BC9 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C557DD521B988ED300E59BC9 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -222,7 +200,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C557DD541B988ED300E59BC9 /* ValidatorLauncherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
