@@ -89,7 +89,7 @@ Func start_server()
 	$options = ""
 	If $debug = "true" Then $options = "debug"
 	If FileExists($license) Then FileCopy($license, @ScriptDir & '\' & $licfile, 1)
-	$serv_pid = Run('jre\bin\java.exe -cp ' & $classpath & ' -Dsun.net.httpserver.idleInterval="3600" com.novell.nccd.validator.RESTServer ' & $options, "", @SW_HIDE)
+	$serv_pid = Run('jre\bin\java.exe -cp ' & $classpath & ' -Dsun.net.httpserver.idleInterval="3600" -Dfile.encoding=UTF8 -Dsun.jnu.encoding=UTF-8 -Djavax.servlet.request.encoding=UTF-8 com.novell.nccd.validator.RESTServer ' & $options, "", @SW_HIDE)
 	$serv_window = ProcessGetHandle($serv_pid, @ScriptDir & "\jre\bin\java.exe", 5)
 	WinSetTitle($serv_window, "", $serv_title)
 	If $hide_console = "false" Then	
