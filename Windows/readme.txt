@@ -1,4 +1,4 @@
-Launcher for NetIQ Validator v0.9.2, 2015-09-03, © 2013 Lothar Haeger (lothar.haeger@is4it.de)
+Launcher for NetIQ Validator v0.9.3, 2016-08-25, © 2013 Lothar Haeger (lothar.haeger@is4it.de)
 
 download url:  https://iam.is4it.de/public/download/ValidatorLauncher.zip
 home page url: http://www.is4it.de/en/solution/identity-access-management/

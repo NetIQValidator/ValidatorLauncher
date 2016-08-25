@@ -14,7 +14,7 @@
 
 ;preferences
 $product = "Launcher for NetIQ Validator"
-$version = "v0.9.2, 2015-09-03"
+$version = "v0.9.3, 2016-08-25"
 $author  = "Lothar Haeger, lothar.haeger@is4it.de"
 
 $serv_title    = "Validator for Identity Manager Service"
