@@ -10,18 +10,7 @@
 		C557DD431B988ED300E59BC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557DD421B988ED300E59BC9 /* AppDelegate.swift */; };
 		C557DD451B988ED300E59BC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C557DD441B988ED300E59BC9 /* Images.xcassets */; };
 		C557DD481B988ED300E59BC9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C557DD461B988ED300E59BC9 /* MainMenu.xib */; };
-		C5C71A3B1B9B0C9600B101FE /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C71A3A1B9B0C9600B101FE /* StreamReader.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C557DD4E1B988ED300E59BC9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C557DD351B988ED300E59BC9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C557DD3C1B988ED300E59BC9;
-			remoteInfo = "ValidatorLauncher for Mac";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C557DD3D1B988ED300E59BC9 /* ValidatorLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ValidatorLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,19 +18,10 @@
 		C557DD421B988ED300E59BC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C557DD441B988ED300E59BC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C557DD471B988ED300E59BC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		C557DD4D1B988ED300E59BC9 /* ValidatorLauncher.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ValidatorLauncher.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5C71A3A1B9B0C9600B101FE /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C557DD3A1B988ED300E59BC9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C557DD4A1B988ED300E59BC9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,7 +43,6 @@
 			isa = PBXGroup;
 			children = (
 				C557DD3D1B988ED300E59BC9 /* ValidatorLauncher.app */,
-				C557DD4D1B988ED300E59BC9 /* ValidatorLauncher.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,7 +54,6 @@
 				C557DD441B988ED300E59BC9 /* Images.xcassets */,
 				C557DD461B988ED300E59BC9 /* MainMenu.xib */,
 				C557DD401B988ED300E59BC9 /* Supporting Files */,
-				C5C71A3A1B9B0C9600B101FE /* StreamReader.swift */,
 			);
 			name = ValidatorLauncher;
 			path = "ValidatorLauncher for Mac";
@@ -109,24 +87,6 @@
 			productReference = C557DD3D1B988ED300E59BC9 /* ValidatorLauncher.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C557DD4C1B988ED300E59BC9 /* ValidatorLauncherTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C557DD5A1B988ED300E59BC9 /* Build configuration list for PBXNativeTarget "ValidatorLauncherTests" */;
-			buildPhases = (
-				C557DD491B988ED300E59BC9 /* Sources */,
-				C557DD4A1B988ED300E59BC9 /* Frameworks */,
-				C557DD4B1B988ED300E59BC9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C557DD4F1B988ED300E59BC9 /* PBXTargetDependency */,
-			);
-			name = ValidatorLauncherTests;
-			productName = "ValidatorLauncher for MacTests";
-			productReference = C557DD4D1B988ED300E59BC9 /* ValidatorLauncher.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -135,16 +95,13 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Lothar Haeger";
 				TargetAttributes = {
 					C557DD3C1B988ED300E59BC9 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 8B7L8R4FBJ;
-					};
-					C557DD4C1B988ED300E59BC9 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = C557DD3C1B988ED300E59BC9;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -162,7 +119,6 @@
 			projectRoot = "";
 			targets = (
 				C557DD3C1B988ED300E59BC9 /* ValidatorLauncher */,
-				C557DD4C1B988ED300E59BC9 /* ValidatorLauncherTests */,
 			);
 		};
 /* End PBXProject section */
@@ -177,13 +133,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C557DD4B1B988ED300E59BC9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -191,27 +140,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5C71A3B1B9B0C9600B101FE /* StreamReader.swift in Sources */,
 				C557DD431B988ED300E59BC9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C557DD491B988ED300E59BC9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C557DD4F1B988ED300E59BC9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C557DD3C1B988ED300E59BC9 /* ValidatorLauncher */;
-			targetProxy = C557DD4E1B988ED300E59BC9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C557DD461B988ED300E59BC9 /* MainMenu.xib */ = {
@@ -238,8 +171,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -283,8 +218,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -303,6 +240,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -313,6 +251,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8B7L8R4FBJ;
 				INFOPLIST_FILE = "ValidatorLauncher for Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -320,6 +259,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brummelhook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ValidatorLauncher;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -330,6 +270,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8B7L8R4FBJ;
 				INFOPLIST_FILE = "ValidatorLauncher for Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -337,44 +278,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brummelhook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ValidatorLauncher;
 				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
-		C557DD5B1B988ED300E59BC9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ValidatorLauncher for MacTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.brummelhook.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ValidatorLauncher;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ValidatorLauncher.app/Contents/MacOS/ValidatorLauncher";
-			};
-			name = Debug;
-		};
-		C557DD5C1B988ED300E59BC9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ValidatorLauncher for MacTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.brummelhook.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ValidatorLauncher;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ValidatorLauncher.app/Contents/MacOS/ValidatorLauncher";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -395,15 +299,6 @@
 			buildConfigurations = (
 				C557DD581B988ED300E59BC9 /* Debug */,
 				C557DD591B988ED300E59BC9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C557DD5A1B988ED300E59BC9 /* Build configuration list for PBXNativeTarget "ValidatorLauncherTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C557DD5B1B988ED300E59BC9 /* Debug */,
-				C557DD5C1B988ED300E59BC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
