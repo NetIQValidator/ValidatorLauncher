@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "12E3002453F68AA9A4837D7715D768CA0C7F2CB7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "20a95748-9825-11e1-8941-411740f46315" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "20a95748-9825-11e1-8941-411740f46315" : 9223372036854775807,
+    "12E3002453F68AA9A4837D7715D768CA0C7F2CB7" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "63CB5503-0E82-4963-9B8C-F99F626FEFA7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "20a95748-9825-11e1-8941-411740f46315" : "IAMDev\/",
+    "12E3002453F68AA9A4837D7715D768CA0C7F2CB7" : "ValidatorLauncher\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ValidatorLauncher",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Mac\/ValidatorLauncher.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/NetIQValidator\/ValidatorLauncher.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "12E3002453F68AA9A4837D7715D768CA0C7F2CB7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/svn.is4it.de\/repos\/IAMDev",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "20a95748-9825-11e1-8941-411740f46315"
+    }
+  ]
+}

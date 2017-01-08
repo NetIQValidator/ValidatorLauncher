@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var homePage: NSButton!
     
     let appAbout =  "Launcher for NetIQ Validator\n\n" +
-                    "Version 0.9.1, 2015-09-24\n\n" +
+                    "Version 0.9.2, 2016-12-17\n\n" +
                     "© 2015 Lothar Haeger (lothar.haeger@is4it.de)\n\n"
     let homePageUrl = "http://www.is4it.de/en/solution/identity-access-management/"
 
@@ -46,9 +46,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                              (name: "Chrome",  id: "com.google.Chrome")]
 
 
-    let prefs = NSUserDefaults.standardUserDefaults()
+    let prefs = UserDefaults.standard
 
-    var statusBar = NSStatusBar.systemStatusBar()
+    var statusBar = NSStatusBar.system()
     var statusBarItem : NSStatusItem = NSStatusItem()
     var menu: NSMenu = NSMenu()
     var menuItemService : NSMenuItem = NSMenuItem()
@@ -58,17 +58,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var menuItemScheduler : NSMenuItem = NSMenuItem()
     var menuItemPrefs : NSMenuItem = NSMenuItem()
     var menuItemQuit : NSMenuItem = NSMenuItem()
-    var validatorUrl : NSURL!
-    var validatorService: NSTask = NSTask()
+    var validatorUrl : URL!
+    var validatorService: Process = Process()
     
     override func awakeFromNib() {
 
         // Build status bar menu
         let icon = NSImage(named: "MenuIcon")
-        icon!.template = true
+        icon!.isTemplate = true
         menu.autoenablesItems = false
         
-        statusBarItem = statusBar.statusItemWithLength(-1)
+        statusBarItem = statusBar.statusItem(withLength: -1)
         statusBarItem.menu = menu
         statusBarItem.image = icon
         statusBarItem.title = ""
@@ -79,118 +79,118 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         //"Show/Hide Service Console" menuItem (hidden until implemented)
         menuItemConsole.title = "Show Console"
-        menuItemConsole.action = Selector("showConsole:")
-        menuItemConsole.hidden = true
+        menuItemConsole.action = #selector(AppDelegate.showConsole(_:))
+        menuItemConsole.isHidden = true
         menu.addItem(menuItemConsole)
         
         // Separator
-        menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem.separator())
         
         //"Open Validator" menuItem
         menuItemValidator.title = "Open Validator"
-        menuItemValidator.action = Selector("openValidator:")
+        menuItemValidator.action = #selector(AppDelegate.openValidator(_:))
         menu.addItem(menuItemValidator)
 
         
         //"Open Runner" menuItem
         menuItemRunner.title = "Open Runner"
-        menuItemRunner.action = Selector("openRunner:")
+        menuItemRunner.action = #selector(AppDelegate.openRunner(_:))
         menu.addItem(menuItemRunner)
-        menuItemRunner.enabled = false
+        menuItemRunner.isEnabled = false
         
         //"Open Scheduler" menuItem
         menuItemScheduler.title = "Open Scheduler"
-        menuItemScheduler.action = Selector("openScheduler:")
+        menuItemScheduler.action = #selector(AppDelegate.openScheduler(_:))
         menu.addItem(menuItemScheduler)
         
         // Separator
-        menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem.separator())
         
         //"Preferences" menuItem
         menuItemPrefs.title = "Preferences"
-        menuItemPrefs.action = Selector("Preferences:")
+        menuItemPrefs.action = #selector(AppDelegate.Preferences(_:))
         menu.addItem(menuItemPrefs)
         
         // Separator
-        menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem.separator())
         
         // "Quit" menuItem
         menuItemQuit.title = "Quit"
-        menuItemQuit.action = Selector("quitApplication:")
+        menuItemQuit.action = #selector(AppDelegate.quitApplication(_:))
         menu.addItem(menuItemQuit)
 
         // Update dynamic settings depending on Validator service status
         menuItemServiceUpdate()
     }
     
-    @IBAction func optionUseCustomLicenseFile(sender: NSButton) {
-        self.prefs.setInteger(optionUseCustomLicenseFile.state, forKey: "optionUseCustomLicenseFile")
+    @IBAction func optionUseCustomLicenseFile(_ sender: NSButton) {
+        self.prefs.set(optionUseCustomLicenseFile.state, forKey: "optionUseCustomLicenseFile")
         if optionUseCustomLicenseFile.selected {
-            CustomLicenseFile.enabled = true
-            CustomLicenseFileSelector.enabled = true
-            if let customLicenseFilePath = prefs.stringForKey("customLicenseFilePath") {
+            CustomLicenseFile.isEnabled = true
+            CustomLicenseFileSelector.isEnabled = true
+            if let customLicenseFilePath = prefs.string(forKey: "customLicenseFilePath") {
                 CustomLicenseFile.stringValue = customLicenseFilePath
             } else {
                 CustomLicenseFile.stringValue = ""
             }
         } else {
-            CustomLicenseFile.enabled = false
-            CustomLicenseFileSelector.enabled = false
+            CustomLicenseFile.isEnabled = false
+            CustomLicenseFileSelector.isEnabled = false
             CustomLicenseFile.stringValue = "config/license.dat"
         }
     }
     
-    @IBAction func buttonStartServiceOnLaunch(sender: NSButton) {
-        self.prefs.setInteger(optionStartServiceOnLaunch.state, forKey: "optionStartServiceOnLaunch")
+    @IBAction func buttonStartServiceOnLaunch(_ sender: NSButton) {
+        self.prefs.set(optionStartServiceOnLaunch.state, forKey: "optionStartServiceOnLaunch")
     }
     
-    @IBAction func buttonStartServiceInDebugMode(sender: NSButton) {
-        self.prefs.setInteger(optionStartServiceInDebugMode.state, forKey: "optionStartServiceInDebugMode")
+    @IBAction func buttonStartServiceInDebugMode(_ sender: NSButton) {
+        self.prefs.set(optionStartServiceInDebugMode.state, forKey: "optionStartServiceInDebugMode")
     }
     
-    @IBAction func buttonShowServiceConsole(sender: NSButton) {
-        self.prefs.setInteger(optionShowServiceConsole.state, forKey: "optionShowServiceConsole")
+    @IBAction func buttonShowServiceConsole(_ sender: NSButton) {
+        self.prefs.set(optionShowServiceConsole.state, forKey: "optionShowServiceConsole")
     }
     
-    @IBAction func buttonOpenValidatorClient(sender: NSButton) {
-        self.prefs.setInteger(optionOpenValidatorClient.state, forKey: "optionOpenValidatorClient")
+    @IBAction func buttonOpenValidatorClient(_ sender: NSButton) {
+        self.prefs.set(optionOpenValidatorClient.state, forKey: "optionOpenValidatorClient")
     }
     
-    @IBAction func buttonOpenRunnerClient(sender: NSButton) {
-        self.prefs.setInteger(optionOpenRunnerClient.state, forKey: "optionOpenRunnerClient")
+    @IBAction func buttonOpenRunnerClient(_ sender: NSButton) {
+        self.prefs.set(optionOpenRunnerClient.state, forKey: "optionOpenRunnerClient")
     }
     
-    @IBAction func buttonOpenSchedulerClient(sender: NSButton) {
-        self.prefs.setInteger(optionOpenSchedulerClient.state, forKey: "optionOpenSchedulerClient")
+    @IBAction func buttonOpenSchedulerClient(_ sender: NSButton) {
+        self.prefs.set(optionOpenSchedulerClient.state, forKey: "optionOpenSchedulerClient")
     }
     
-    @IBAction func popupClientBrowser(sender: NSPopUpButtonCell) {
+    @IBAction func popupClientBrowser(_ sender: NSPopUpButtonCell) {
         self.prefs.setValue(optionClientBrowser.titleOfSelectedItem, forKey: "optionClientBrowser")
     }
 
-    @IBAction func homePagePressed(sender: NSButton) {
-        let url = NSURL(string: homePageUrl)
+    @IBAction func homePagePressed(_ sender: NSButton) {
+        let url = URL(string: homePageUrl)
         openBrowser(url!)
     }
     
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        window.level = Int(CGWindowLevelForKey(CGWindowLevelKey.FloatingWindowLevelKey))
+        window.level = Int(CGWindowLevelForKey(CGWindowLevelKey.floatingWindow))
         
         // hide checkbox until option is implemented
-        optionShowServiceConsole.hidden = true
+        optionShowServiceConsole.isHidden = true
         
         // initialize browser list
         optionClientBrowser.removeAllItems()
         for browser in supportedBrowsers {
-            optionClientBrowser.addItemWithTitle(browser.name)
-            optionClientBrowser.itemWithTitle(browser.name)!.enabled = false
+            optionClientBrowser.addItem(withTitle: browser.name)
+            optionClientBrowser.item(withTitle: browser.name)!.isEnabled = false
         }
-        if let installedBrowsers = LSCopyAllHandlersForURLScheme("https")?.takeUnretainedValue() {
+        if let installedBrowsers = LSCopyAllHandlersForURLScheme("https" as CFString)?.takeUnretainedValue() {
             for installedBrowser in installedBrowsers {
                 for browser in supportedBrowsers {
-                    if browser.id == String(installedBrowser){
-                        optionClientBrowser.itemWithTitle(browser.name)?.enabled = true
+                    if browser.id == String(describing: installedBrowser){
+                        optionClientBrowser.item(withTitle: browser.name)?.isEnabled = true
                     }
                 }
             }
@@ -200,11 +200,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         aboutText.stringValue = appAbout
         // homepage link
         let pstyle = NSMutableParagraphStyle()
-        pstyle.alignment = NSTextAlignment.Center
+        pstyle.alignment = NSTextAlignment.center
         homePage.attributedTitle = NSAttributedString(
                                         string: homePageUrl,
-                                        attributes: [ NSFontAttributeName: NSFont.systemFontOfSize(13.0),
-                                                      NSForegroundColorAttributeName: NSColor.blueColor(),
+                                        attributes: [ NSFontAttributeName: NSFont.systemFont(ofSize: 13.0),
+                                                      NSForegroundColorAttributeName: NSColor.blue,
                                                       NSUnderlineStyleAttributeName: 1,
                                                       NSParagraphStyleAttributeName: pstyle])
         
@@ -215,7 +215,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 startService(self)
                 sleep(3)
             }
-            if validatorService.running {
+            if validatorService.isRunning {
                 if optionShowServiceConsole.selected {
                     showConsole(self)
                 }
@@ -234,18 +234,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         stopService(self)
     }
  
-    @IBAction func BasePathSelector(sender: NSButton) {
+    @IBAction func BasePathSelector(_ sender: NSButton) {
         setValidatorBasePath()
     }
 
-    @IBAction func BasePath(sender: NSTextField) {
+    @IBAction func BasePath(_ sender: NSTextField) {
     }
     
-    @IBAction func CustomLicenseFileSelector(sender: NSButton) {
+    @IBAction func CustomLicenseFileSelector(_ sender: NSButton) {
         setCustomLicenseFilePath()
     }
     
@@ -260,8 +260,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         while true {
             let result = openPanel.runModal()
             if result == NSFileHandlingPanelOKButton {
-                    CustomLicenseFile.stringValue = openPanel.URL!.path!
-                    self.prefs.setURL(openPanel.URL!, forKey: "customLicenseFilePath")
+                    CustomLicenseFile.stringValue = openPanel.url!.path
+                    self.prefs.set(openPanel.url!, forKey: "customLicenseFilePath")
                     break
             } else {
                 break
@@ -278,9 +278,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         while true {
             let result = openPanel.runModal()
             if result == NSFileHandlingPanelOKButton {
-                if isValidatorInstallPath(openPanel.URL!.path!) {
-                    BasePath.stringValue = openPanel.URL!.path!
-                    self.prefs.setURL(openPanel.URL!, forKey: "validatorBasePath")
+                if isValidatorInstallPath(openPanel.url!.path) {
+                    BasePath.stringValue = openPanel.url!.path
+                    self.prefs.set(openPanel.url!, forKey: "validatorBasePath")
                     readPropertiesFile()
                     break
                 }
@@ -290,10 +290,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func messageBox(message: String, description: String?=nil) -> Bool {
+    func messageBox(_ message: String, description: String?=nil) -> Bool {
         let myPopup: NSAlert = NSAlert()
-        myPopup.alertStyle = NSAlertStyle.CriticalAlertStyle
-        myPopup.addButtonWithTitle("OK")
+        myPopup.alertStyle = NSAlertStyle.critical
+        myPopup.addButton(withTitle: "OK")
         myPopup.messageText = message
         if let informativeText = description {
             myPopup.informativeText = informativeText
@@ -303,27 +303,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func readPreferences() -> Bool {
         
-        if let validatorBasePath = prefs.stringForKey("validatorBasePath") {
+        if let validatorBasePath = prefs.string(forKey: "validatorBasePath") {
             
             // Service tab
             BasePath.stringValue = validatorBasePath
-            optionUseCustomLicenseFile.state = prefs.integerForKey("optionUseCustomLicenseFile")
-            CustomLicenseFile.enabled = Bool(optionUseCustomLicenseFile.state)
-            CustomLicenseFileSelector.enabled = CustomLicenseFile.enabled
-            if CustomLicenseFile.enabled {
-                CustomLicenseFile.stringValue = prefs.URLForKey("customLicenseFilePath")!.path!
+            optionUseCustomLicenseFile.state = prefs.integer(forKey: "optionUseCustomLicenseFile")
+            CustomLicenseFile.isEnabled = optionUseCustomLicenseFile.state == 1
+            CustomLicenseFileSelector.isEnabled = CustomLicenseFile.isEnabled
+            if CustomLicenseFile.isEnabled {
+                CustomLicenseFile.stringValue = prefs.url(forKey: "customLicenseFilePath")!.path
             } else {
                 CustomLicenseFile.stringValue = "config/license.dat"
             }
-            optionStartServiceOnLaunch.state = prefs.integerForKey("optionStartServiceOnLaunch")
-            optionStartServiceInDebugMode.state = prefs.integerForKey("optionStartServiceInDebugMode")
-            optionShowServiceConsole.state = prefs.integerForKey("optionShowServiceConsole")
+            optionStartServiceOnLaunch.state = prefs.integer(forKey: "optionStartServiceOnLaunch")
+            optionStartServiceInDebugMode.state = prefs.integer(forKey: "optionStartServiceInDebugMode")
+            optionShowServiceConsole.state = prefs.integer(forKey: "optionShowServiceConsole")
 
             // Clients tab
-            optionOpenValidatorClient.state = prefs.integerForKey("optionOpenValidatorClient")
-            optionOpenRunnerClient.state = prefs.integerForKey("optionOpenRunnerClient")
-            optionOpenSchedulerClient.state = prefs.integerForKey("optionOpenSchedulerClient")
-            optionClientBrowser.selectItemWithTitle(String(prefs.valueForKey("optionClientBrowser")!))
+            optionOpenValidatorClient.state = prefs.integer(forKey: "optionOpenValidatorClient")
+            optionOpenRunnerClient.state = prefs.integer(forKey: "optionOpenRunnerClient")
+            optionOpenSchedulerClient.state = prefs.integer(forKey: "optionOpenSchedulerClient")
+            optionClientBrowser.selectItem(withTitle: String(describing: prefs.value(forKey: "optionClientBrowser")!))
 
             if isValidatorInstallPath(validatorBasePath) {
                 return true
@@ -335,11 +335,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
     
-    func isValidatorInstallPath(validatorBasePath: String) -> Bool {
+    func isValidatorInstallPath(_ validatorBasePath: String) -> Bool {
         let validatorCmdPath = validatorBasePath + "/runValidator.command"
-        if NSFileManager().fileExistsAtPath(validatorCmdPath) {
+        if FileManager().fileExists(atPath: validatorCmdPath) {
             let validatorPropsPath = validatorBasePath + "/config/validator.properties"
-            if NSFileManager().fileExistsAtPath(validatorPropsPath) {
+            if FileManager().fileExists(atPath: validatorPropsPath) {
                 return true
             }else{
                 messageBox("Please select a valid NetIQ Validator program folder.",
@@ -352,31 +352,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
-    func Preferences(sender: AnyObject){
+    func Preferences(_ sender: AnyObject){
         readPreferences()
         self.window!.orderFrontRegardless()
     }
     
     func readPropertiesFile() -> Bool {
-        if let validatorBasePath = prefs.stringForKey("validatorBasePath")
+        if let validatorBasePath = prefs.string(forKey: "validatorBasePath")
         {
             let validatorPropsPath = validatorBasePath + "/config/validator.properties"
-            if NSFileManager().fileExistsAtPath(validatorPropsPath) {
-                let propertiesArray = (try! String(contentsOfFile: validatorPropsPath, encoding: NSUTF8StringEncoding)).componentsSeparatedByString("\n")
+            if FileManager().fileExists(atPath: validatorPropsPath) {
+                let propertiesArray = (try! String(contentsOfFile: validatorPropsPath, encoding: String.Encoding.utf8)).components(separatedBy: "\n")
                 var property: [String]
                 for propertyLine in propertiesArray {
-                    property = propertyLine.componentsSeparatedByString("=")
+                    property = propertyLine.components(separatedBy: "=")
                     if property.count == 2 {
-                        property[1] = property[1].stringByReplacingOccurrencesOfString("\\", withString: "")
+                        property[1] = property[1].replacingOccurrences(of: "\\", with: "")
                     }
                     switch property[0] {
                     case "MAIN_URL":
-                        prefs.setURL(NSURL(string: property[1])!, forKey: "validatorUrl")
-                        prefs.setURL(NSURL(string: property[1].stringByReplacingOccurrencesOfString("/validator", withString: "/runner"))!, forKey: "runnerUrl")
+                        prefs.set(URL(string: property[1])!, forKey: "validatorUrl")
+                        prefs.set(URL(string: property[1].replacingOccurrences(of: "/validator", with: "/runner"))!, forKey: "runnerUrl")
                     case "MAIN_SCHEDULER_URL":
-                        prefs.setURL(NSURL(string: property[1])!, forKey: "schedulerUrl")
+                        prefs.set(URL(string: property[1])!, forKey: "schedulerUrl")
                     case "TESTS_LOC":
-                        prefs.setURL(NSURL(string: property[1])!, forKey: "testPath")
+                        prefs.set(URL(string: property[1])!, forKey: "testPath")
                     default:
                         _ = 0
                     }
@@ -390,25 +390,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
     
-    func startService(sender: AnyObject) {
-        if !validatorService.running {
-            validatorService = NSTask()
+    func startService(_ sender: AnyObject) {
+        if !validatorService.isRunning {
+            validatorService = Process()
 
-            if let validatorBasePath = prefs.stringForKey("validatorBasePath")
+            if let validatorBasePath = prefs.string(forKey: "validatorBasePath")
             {
                 let validatorCmdPath = validatorBasePath + "/runValidator.command"
-                if NSFileManager().fileExistsAtPath(validatorCmdPath) {
+                if FileManager().fileExists(atPath: validatorCmdPath) {
                     if optionUseCustomLicenseFile.selected {
                         let myLicense: String = CustomLicenseFile.stringValue
                         let exLicense: String = validatorBasePath + "/config/license.dat"
-                        if NSFileManager().fileExistsAtPath(myLicense) {
+                        if FileManager().fileExists(atPath: myLicense) {
                             do {
-                                if NSFileManager().fileExistsAtPath(exLicense)
-                                    && !NSFileManager().contentsEqualAtPath(myLicense, andPath: exLicense) {
-                                    try NSFileManager().removeItemAtPath(exLicense)
+                                if FileManager().fileExists(atPath: exLicense)
+                                    && !FileManager().contentsEqual(atPath: myLicense, andPath: exLicense) {
+                                    try FileManager().removeItem(atPath: exLicense)
                                 }
-                                if !NSFileManager().fileExistsAtPath(exLicense) {
-                                    try NSFileManager().copyItemAtPath(myLicense, toPath: exLicense)
+                                if !FileManager().fileExists(atPath: exLicense) {
+                                    try FileManager().copyItem(atPath: myLicense, toPath: exLicense)
                                 }
                             } catch let error as NSError {
                                 messageBox("Custom license could not be activated, starting Validator with existing license.",
@@ -430,107 +430,108 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menuItemServiceUpdate()
     }
     
-    func stopService(sender: AnyObject) {
-        if validatorService.running {
+    func stopService(_ sender: AnyObject) {
+        if validatorService.isRunning {
             validatorService.terminate()
             validatorService.waitUntilExit()
         }
         menuItemServiceUpdate()
     }
     
-    func showConsole(sender: AnyObject) {
+    func showConsole(_ sender: AnyObject) {
         // not yet implemented
     }
     
-    func hideConsole(sender: AnyObject) {
+    func hideConsole(_ sender: AnyObject) {
         // not yet implemented
     }
     
     func menuItemServiceUpdate() {
-        if validatorService.running {
+        if validatorService.isRunning {
             menuItemService.title = "Stop Service"
-            menuItemService.action = Selector("stopService:")
-            menuItemValidator.enabled = true
-            menuItemRunner.enabled = true
-            menuItemScheduler.enabled = true
+            menuItemService.action = #selector(AppDelegate.stopService(_:))
+            menuItemValidator.isEnabled = true
+            menuItemRunner.isEnabled = true
+            menuItemScheduler.isEnabled = true
         } else {
             menuItemService.title = "Start Service"
-            menuItemService.action = Selector("startService:")
-            menuItemValidator.enabled = false
-            menuItemRunner.enabled = false
-            menuItemScheduler.enabled = false
+            menuItemService.action = #selector(AppDelegate.startService(_:))
+            menuItemValidator.isEnabled = false
+            menuItemRunner.isEnabled = false
+            menuItemScheduler.isEnabled = false
         }
     }
     
-    func openBrowser(url: NSURL) {
+    func openBrowser(_ url: URL) {
         if let selectedBrowser = optionClientBrowser.selectedItem?.title {
             for browser in supportedBrowsers {
                 if browser.name == selectedBrowser {
-                    NSWorkspace.sharedWorkspace().openURLs([url], withAppBundleIdentifier: browser.id, options: NSWorkspaceLaunchOptions.Default, additionalEventParamDescriptor: nil, launchIdentifiers: nil)
+                    NSWorkspace.shared().open([url], withAppBundleIdentifier: browser.id, options: NSWorkspaceLaunchOptions.default, additionalEventParamDescriptor: nil, launchIdentifiers: nil)
                     return
                 }
             }
         } else {
-            NSWorkspace.sharedWorkspace().openURL(url)
+            NSWorkspace.shared().open(url)
         }
 
     }
 
-    func openValidator(sender: AnyObject) {
-        if let url = prefs.URLForKey("validatorUrl") {
+    func openValidator(_ sender: AnyObject) {
+        if let url = prefs.url(forKey: "validatorUrl") {
             openBrowser(url)
         }
     }
 
-    func openRunner(sender: AnyObject) {
-        if let url = prefs.URLForKey("runnerUrl")
+    func openRunner(_ sender: AnyObject) {
+        if let url = prefs.url(forKey: "runnerUrl")
         {
             openBrowser(url)
         }
     }
     
-    func openScheduler(sender: AnyObject) {
-        if let url = prefs.URLForKey("schedulerUrl")
+    func openScheduler(_ sender: AnyObject) {
+        if let url = prefs.url(forKey: "schedulerUrl")
         {
             openBrowser(url)
         }
     }
     
-    func quitApplication(sender: AnyObject) {
-        NSApplication.sharedApplication().terminate(sender)
+    func quitApplication(_ sender: AnyObject) {
+        NSApplication.shared().terminate(sender)
     }
     
 }
 
-func matches(searchString:String, pattern : String)->Bool{
+func matches(_ searchString:String, pattern : String)->Bool{
     do {
-        let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators)
-        let matchCount = regex.numberOfMatchesInString(searchString, options: NSMatchingOptions.init(rawValue: 0), range: NSMakeRange(0,searchString.characters.count))
+        let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
+        let matchCount = regex.numberOfMatches(in: searchString, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0,searchString.characters.count))
         return matchCount > 0
     } catch {
     }
     return false
 }
 
-func replace(searchString:String, pattern : String, replacementPattern:String)->String{
+func replace(_ searchString:String, pattern : String, replacementPattern:String)->String{
     do {
-        let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators)
-        let replacedString = regex.stringByReplacingMatchesInString(searchString, options: NSMatchingOptions.init(rawValue: 0), range: NSMakeRange(0, searchString.characters.count), withTemplate: replacementPattern)
+        let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
+        let replacedString = regex.stringByReplacingMatches(in: searchString, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, searchString.characters.count), withTemplate: replacementPattern)
         return replacedString
     } catch {}
     return searchString
 }
 
-extension CFArray: SequenceType {
-    public func generate() -> AnyGenerator<AnyObject> {
+extension CFArray: Sequence {
+    public func makeIterator() -> AnyIterator<AnyObject> {
         var index = -1
         let maxIndex = CFArrayGetCount(self)
-        return anyGenerator{
-            guard ++index < maxIndex else {
+        return AnyIterator{
+            index += 1
+            guard index < maxIndex else {
                 return nil
             }
-            let unmanagedObject: UnsafePointer<Void> = CFArrayGetValueAtIndex(self, index)
-            let rec = unsafeBitCast(unmanagedObject, AnyObject.self)
+            let unmanagedObject: UnsafeRawPointer = CFArrayGetValueAtIndex(self, index)
+            let rec = unsafeBitCast(unmanagedObject, to: AnyObject.self)
             return rec
         }
     }
