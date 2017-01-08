@@ -20,4 +20,4 @@ When you run ValidatorLauncher.app the first time, it will prompt you for the in
 
 If you buy a Validator license you’ll receive a license.dat file that you need to copy into the config subfolder of your Validator install. Since the Validator download comes with an evaluation license file as well this will most likely overwrite your copy during an update. So simply keep your custom license somewhere in a safe place outside the install folder and point the Launcher to it – it will copy the license.dat into the right place on the fly.
 
-Current version 0.9.2 has been developed for and tested with NetIQ Validator version 1.4.1, available from https://dl.netiq.com/Download?buildid=A4ptieHnQXE~
+Current version 0.9.2 has been developed for and tested with NetIQ Validator version 1.4.1, available from https://dl.netiq.com/Download?buildid=fhroqsjJqGA~
