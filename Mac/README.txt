@@ -1,6 +1,6 @@
-Validator Launcher for Mac, v0.9.2, 2016-12-17, © 2015 Lothar Haeger (lothar.haeger@is4it.de)
+Validator Launcher for Mac, v0.9.3, 2017-08-22, © 2015-17 Lothar Haeger (lothar.haeger@is4it.de)
 
-download url: https://iam.is4it.de/public/download/ValidatorLauncher_0.9.2.app.zip
+download url: https://iam.is4it.de/public/download/ValidatorLauncher_0.9.3.app.zip
 home page url: http://www.is4it.de/en/solution/identity-access-management/
 source code: https://github.com/NetIQValidator/ValidatorLauncher/tree/master/Mac
 License: Mozilla Public License v2.0, see http://mozilla.org/MPL/2.0/ for details
@@ -10,7 +10,7 @@ NetIQ Validator comes with launch scripts for all supported platforms (Linux/Mac
 The Validator Launcher for Mac  is a native OS-X app that sits in the menu bar and (by default) starts the Validator service and auto-launches the Validator client web page. From the menu bar icon you can
 
 – open the Validator client web page
-– open the Validator runner web page
+– open the Validator runner web page (only Validator 1.4.x, Runner has been removed in Validator 1.5)
 – open the Validator scheduler web page
 – disable autostart of the Validator client
 – choose your preferred browser
@@ -20,4 +20,4 @@ When you run ValidatorLauncher.app the first time, it will prompt you for the in
 
 If you buy a Validator license you’ll receive a license.dat file that you need to copy into the config subfolder of your Validator install. Since the Validator download comes with an evaluation license file as well this will most likely overwrite your copy during an update. So simply keep your custom license somewhere in a safe place outside the install folder and point the Launcher to it – it will copy the license.dat into the right place on the fly.
 
-Current version 0.9.2 has been developed for and tested with NetIQ Validator version 1.4.1, available from https://dl.netiq.com/Download?buildid=fhroqsjJqGA~
+Current version 0.9.3 has been developed for and tested with NetIQ Validator version 1.4.1 (available from https://dl.netiq.com/Download?buildid=fhroqsjJqGA~) and 1.5.
