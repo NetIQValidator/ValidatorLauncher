@@ -36,9 +36,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var aboutText: NSTextField!
     @IBOutlet weak var homePage: NSButton!
     
-    let appAbout =  "Launcher for NetIQ Validator\n\n" +
-                    "Version 0.9.2, 2016-12-17\n\n" +
-                    "© 2015 Lothar Haeger (lothar.haeger@is4it.de)\n\n"
+    let appAbout =  "Launcher for Validator\n\n" +
+                    "Version 0.9.2, 2017-08-22\n\n" +
+                    "© 2015-17 Lothar Haeger (lothar.haeger@is4it.de)\n\n"
     let homePageUrl = "http://www.is4it.de/en/solution/identity-access-management/"
 
     let supportedBrowsers = [(name: "Safari",  id: "com.apple.Safari"),
@@ -176,10 +176,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         window.level = Int(CGWindowLevelForKey(CGWindowLevelKey.floatingWindow))
-        
+
         // hide checkbox until option is implemented
         optionShowServiceConsole.isHidden = true
-        
+
         // initialize browser list
         optionClientBrowser.removeAllItems()
         for browser in supportedBrowsers {
@@ -207,9 +207,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                       NSForegroundColorAttributeName: NSColor.blue,
                                                       NSUnderlineStyleAttributeName: 1,
                                                       NSParagraphStyleAttributeName: pstyle])
-        
+
         if readPreferences() {
-            self.window!.orderOut(self)
+            window!.orderOut(self)
             readPropertiesFile()
             if optionStartServiceOnLaunch.selected {
                 startService(self)
@@ -222,7 +222,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if optionOpenValidatorClient.selected {
                     openValidator(self)
                 }
-                if optionOpenRunnerClient.selected {
+                if optionOpenRunnerClient.selected && isRunnerAvailable() {
                     openRunner(self)
                 }
                 if optionOpenSchedulerClient.selected {
@@ -230,7 +230,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         } else {
-            self.window!.orderFrontRegardless()
+            window!.orderFront(self)
         }
     }
     
@@ -282,6 +282,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     BasePath.stringValue = openPanel.url!.path
                     self.prefs.set(openPanel.url!, forKey: "validatorBasePath")
                     readPropertiesFile()
+                    optionOpenRunnerClient.isEnabled = isRunnerAvailable()
+                    optionOpenRunnerClient.isHidden = !isRunnerAvailable()
+                    menuItemRunner.isEnabled = validatorService.isRunning && isRunnerAvailable()
+                    menuItemRunner.isHidden = !isRunnerAvailable()
                     break
                 }
             } else {
@@ -289,7 +293,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
-    
+
+    func isRunnerAvailable() -> Bool {
+        // runner has been removed in v1.5.0 and later
+        let runnerWebPath = prefs.string(forKey: "validatorBasePath")! + "/web/runner/runner.html"
+        return FileManager().fileExists(atPath: runnerWebPath)
+    }
+
     func messageBox(_ message: String, description: String?=nil) -> Bool {
         let myPopup: NSAlert = NSAlert()
         myPopup.alertStyle = NSAlertStyle.critical
@@ -322,6 +332,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Clients tab
             optionOpenValidatorClient.state = prefs.integer(forKey: "optionOpenValidatorClient")
             optionOpenRunnerClient.state = prefs.integer(forKey: "optionOpenRunnerClient")
+            optionOpenRunnerClient.isEnabled = isRunnerAvailable()
+            optionOpenRunnerClient.isHidden = !isRunnerAvailable()
+            menuItemRunner.isEnabled = (validatorService.isRunning && isRunnerAvailable())
+            menuItemRunner.isHidden = !isRunnerAvailable()
             optionOpenSchedulerClient.state = prefs.integer(forKey: "optionOpenSchedulerClient")
             optionClientBrowser.selectItem(withTitle: String(describing: prefs.value(forKey: "optionClientBrowser")!))
 
@@ -340,8 +354,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if FileManager().fileExists(atPath: validatorCmdPath) {
             let validatorPropsPath = validatorBasePath + "/config/validator.properties"
             if FileManager().fileExists(atPath: validatorPropsPath) {
+
                 return true
-            }else{
+            } else {
                 messageBox("Please select a valid NetIQ Validator program folder.",
                     description: "The config/validator.properties file could not be found in \(validatorBasePath).")
             }
@@ -354,10 +369,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func Preferences(_ sender: AnyObject){
         readPreferences()
-        self.window!.orderFrontRegardless()
+        self.window.makeKeyAndOrderFront(self)
     }
     
-    func readPropertiesFile() -> Bool {
+    func readPropertiesFile() {
         if let validatorBasePath = prefs.string(forKey: "validatorBasePath")
         {
             let validatorPropsPath = validatorBasePath + "/config/validator.properties"
@@ -381,13 +396,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         _ = 0
                     }
                 }
-                return true
             } else {
                 messageBox("Please select a valid NetIQ Validator program folder in Preferences.",
                     description: "The config/validator.properties file could not be found in " + validatorBasePath)
             }
         }
-        return false
     }
     
     func startService(_ sender: AnyObject) {
@@ -451,7 +464,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             menuItemService.title = "Stop Service"
             menuItemService.action = #selector(AppDelegate.stopService(_:))
             menuItemValidator.isEnabled = true
-            menuItemRunner.isEnabled = true
+            menuItemRunner.isEnabled = isRunnerAvailable()
             menuItemScheduler.isEnabled = true
         } else {
             menuItemService.title = "Start Service"
