@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var homePage: NSButton!
     
     let appAbout =  "Launcher for Validator\n\n" +
-                    "Version 0.9.2, 2017-08-22\n\n" +
+                    "Version 0.9.3, 2017-08-22\n\n" +
                     "© 2015-17 Lothar Haeger (lothar.haeger@is4it.de)\n\n"
     let homePageUrl = "http://www.is4it.de/en/solution/identity-access-management/"
 
