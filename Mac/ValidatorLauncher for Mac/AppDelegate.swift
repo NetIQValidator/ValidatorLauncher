@@ -37,8 +37,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var homePage: NSButton!
     
     let appAbout =  "Launcher for Validator\n\n" +
-                    "Version 0.9.3, 2017-08-22\n\n" +
-                    "© 2015-17 Lothar Haeger (lothar.haeger@is4it.de)\n\n"
+                    "Version 0.9.4, 2020-12-13\n\n" +
+                    "© 2015-20 Lothar Haeger (lothar.haeger@is4it.de)\n\n"
     let homePageUrl = "http://www.is4it.de/en/solution/identity-access-management/"
 
     let supportedBrowsers = [(name: "Safari",  id: "com.apple.Safari"),
@@ -64,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     override func awakeFromNib() {
 
         // Build status bar menu
-        let icon = NSImage(named: NSImage.Name(rawValue: "MenuIcon"))
+        let icon = NSImage(named: "MenuIcon")
         icon!.isTemplate = true
         menu.autoenablesItems = false
         
@@ -90,7 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menuItemValidator.title = "Open Validator"
         menuItemValidator.action = #selector(AppDelegate.openValidator(_:))
         menu.addItem(menuItemValidator)
-
+        
         
         //"Open Runner" menuItem
         menuItemRunner.title = "Open Runner"
@@ -203,10 +203,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         pstyle.alignment = NSTextAlignment.center
         homePage.attributedTitle = NSAttributedString(
                                         string: homePageUrl,
-                                        attributes: [ NSAttributedStringKey.font: NSFont.systemFont(ofSize: 13.0),
-                                                      NSAttributedStringKey.foregroundColor: NSColor.blue,
-                                                      NSAttributedStringKey.underlineStyle: 1,
-                                                      NSAttributedStringKey.paragraphStyle: pstyle])
+                                        attributes: [ NSAttributedString.Key.font: NSFont.systemFont(ofSize: 13.0),
+                                                      NSAttributedString.Key.foregroundColor: NSColor.blue,
+                                                      NSAttributedString.Key.underlineStyle: 1,
+                                                      NSAttributedString.Key.paragraphStyle: pstyle])
 
         if readPreferences() {
             window!.orderOut(self)
@@ -436,7 +436,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     } else {
                         validatorService.arguments = [validatorCmdPath]
                     }
+                    let pipe = Pipe()
+
+                    validatorService.standardOutput = pipe
+                    validatorService.standardError = pipe
+
+                    let tee = Process()
+                    tee.currentDirectoryPath = validatorBasePath
+                    tee.launchPath = "/usr/bin/env"
+                    tee.arguments = ["tee", "log/validator.console"]
+                    tee.standardInput = pipe
+
                     validatorService.launch()
+                    tee.launch()
                 }
             }
         }
@@ -518,7 +530,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 func matches(_ searchString:String, pattern : String)->Bool{
     do {
         let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
-        let matchCount = regex.numberOfMatches(in: searchString, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0,searchString.characters.count))
+        let matchCount = regex.numberOfMatches(in: searchString, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0,searchString.count))
         return matchCount > 0
     } catch {
     }
@@ -528,7 +540,7 @@ func matches(_ searchString:String, pattern : String)->Bool{
 func replace(_ searchString:String, pattern : String, replacementPattern:String)->String{
     do {
         let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
-        let replacedString = regex.stringByReplacingMatches(in: searchString, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, searchString.characters.count), withTemplate: replacementPattern)
+        let replacedString = regex.stringByReplacingMatches(in: searchString, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, searchString.count), withTemplate: replacementPattern)
         return replacedString
     } catch {}
     return searchString

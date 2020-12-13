@@ -1,4 +1,4 @@
-Launcher for NetIQ Validator v0.9.3, 2016-08-25, © 2013 Lothar Haeger (lothar.haeger@is4it.de)
+Launcher for NetIQ Validator v0.9.4, 2020-12-13, © 2013-20 Lothar Haeger (lothar.haeger@is4it.de)
 
 download url:  https://iam.is4it.de/public/download/ValidatorLauncher.zip
 home page url: http://www.is4it.de/en/solution/identity-access-management/
@@ -21,4 +21,4 @@ To install, just copy validator.exe into the same folder where you find runValid
 
 If you buy a validator license you'll receive a license.dat file that you need to copy into the config subfolder of your validator install. Since the validator download comes with an evaluation license file as well this will most likely overwrite your copy during an update. So simply keep your custom license somewhere in a safe place outside the install folder and point the Launcher to it - it will copy the license.dat into the right place on the fly.
 
-This launcher has been developed for and tested with NetIQ Validator release versions 1.1 through 1.4.
+This launcher has been developed for and tested with NetIQ Validator release versions 1.1 through 1.5.

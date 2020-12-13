@@ -1,6 +1,6 @@
 ; Launcher for NetIQ Validator
 ;
-; Copyright 2013 Lothar Haeger
+; Copyright 2013-20 Lothar Haeger
 ;
 ; This Source Code Form is subject to the terms of the Mozilla Public
 ; License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,7 +14,7 @@
 
 ;preferences
 $product = "Launcher for NetIQ Validator"
-$version = "v0.9.3, 2016-08-25"
+$version = "v0.9.4, 2020-12-13"
 $author  = "Lothar Haeger, lothar.haeger@is4it.de"
 
 $serv_title    = "Validator for Identity Manager Service"
@@ -29,7 +29,11 @@ If StringRegExp($base_url, ".*/validator$") = 1 Then
 	if $scheduler_url = "" Then
 		$validator_version = "1.3"
 	Else
-		$validator_version = "1.4"
+		If FileExists('wizards') Then
+			$validator_version = "1.5"
+		Else
+			$validator_version = "1.4"
+		EndIf
 	EndIf
 	$base_url = StringRegExpReplace($base_url,"/validator$","")
 	$css_url = $base_url & "/validator/css/validatorStyle.css"
@@ -377,12 +381,12 @@ While 1
 	If $msg <> 0 Then
 		If WinExists($serv_window,"") Then
 			TrayItemSetState($runvalitem,$TRAY_ENABLE)
-			If $validator_version <> "1.2" Then
+			If FileExists('web/runner') Then
 				TrayItemSetState($runrunitem,$TRAY_ENABLE)
 			Else
 				TrayItemSetState($runrunitem,$TRAY_DISABLE)
 			EndIf
-			If $validator_version == "1.4" Then
+			If FileExists('web/scheduler') Then
 				TrayItemSetState($runscheditem,$TRAY_ENABLE)
 			Else
 				TrayItemSetState($runscheditem,$TRAY_DISABLE)

@@ -1,6 +1,6 @@
-Validator Launcher for Mac, v0.9.3, 2017-08-22, © 2015-17 Lothar Haeger (lothar.haeger@is4it.de)
+Validator Launcher for Mac, v0.9.4, 2020-12-13, © 2015-20 Lothar Haeger (lothar.haeger@is4it.de)
 
-download url: https://iam.is4it.de/public/download/ValidatorLauncher_0.9.3.app.zip
+download url: https://iam.is4it.de/public/download/ValidatorLauncher_0.9.4.app.zip
 home page url: http://www.is4it.de/en/solution/identity-access-management/
 source code: https://github.com/NetIQValidator/ValidatorLauncher/tree/master/Mac
 License: Mozilla Public License v2.0, see http://mozilla.org/MPL/2.0/ for details
@@ -20,4 +20,4 @@ When you run ValidatorLauncher.app the first time, it will prompt you for the in
 
 If you buy a Validator license you’ll receive a license.dat file that you need to copy into the config subfolder of your Validator install. Since the Validator download comes with an evaluation license file as well this will most likely overwrite your copy during an update. So simply keep your custom license somewhere in a safe place outside the install folder and point the Launcher to it – it will copy the license.dat into the right place on the fly.
 
-Current version 0.9.3 has been developed for and tested with NetIQ Validator versions 1.4.1 (available from https://dl.netiq.com/Download?buildid=fhroqsjJqGA~) and 1.5 (https://dl.netiq.com/Download?buildid=PX6zi_V06t0~).
+Current version 0.9.4 has been developed for and tested with NetIQ Validator versions 1.4.1 (available from https://dl.netiq.com/Download?buildid=fhroqsjJqGA~) and 1.5 (https://dl.netiq.com/Download?buildid=PX6zi_V06t0~).
